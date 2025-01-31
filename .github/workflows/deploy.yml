@@ -21,6 +21,3 @@ jobs:
       with:
         branch: gh-pages  
         folder: ./frontend
-        token: ${{ secrets.GITHUB_TOKEN }}
-    env:
-      BACKEND_URL: ${{ secrets.BACKEND_URL }}
