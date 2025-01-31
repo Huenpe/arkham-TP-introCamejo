@@ -1,0 +1,15 @@
+meta {
+  name: delete crime
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:3002/api/v1/crimes/:crime_number
+  body: none
+  auth: none
+}
+
+params:path {
+  crime_number: 31
+}

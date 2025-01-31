@@ -1,0 +1,15 @@
+meta {
+  name: delete worker
+  type: http
+  seq: 3
+}
+
+delete {
+  url: http://localhost:3002/api/v1/personal/:dni
+  body: none
+  auth: none
+}
+
+params:path {
+  dni: 30696285
+}

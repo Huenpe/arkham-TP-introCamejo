@@ -1,0 +1,22 @@
+meta {
+  name: create worker
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3002/api/v1/personal
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "dni": 54141241,
+    "nombre": "pedrin",
+    "rol": "guardia",
+    "turno": "noche",
+    "contacto": 3123241
+  }
+  
+}

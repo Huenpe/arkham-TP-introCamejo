@@ -1,0 +1,26 @@
+meta {
+  name: create  criminal
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3002/api/v1/criminales
+  body: json
+  auth: none
+}
+
+body:json {
+    {
+      "nombre": "Maria",     
+      "apodo": ",Manson",        
+      "edad": 22,          
+      "genero": "Fem",          
+      "tratamiento" : "Antidepresivos", 
+      "peligrosidad": "Extremo",
+      "personal_asignado": 312413130,
+      "celda": 1
+      
+    }
+  
+}

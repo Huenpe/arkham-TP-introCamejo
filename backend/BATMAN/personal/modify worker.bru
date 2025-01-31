@@ -1,0 +1,21 @@
+meta {
+  name: modify worker
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3002/api/v1/personal/:dni
+  body: json
+  auth: none
+}
+
+params:path {
+  dni: 31213
+}
+
+body:json {
+  {
+    "contact": 1168291655
+  }
+}

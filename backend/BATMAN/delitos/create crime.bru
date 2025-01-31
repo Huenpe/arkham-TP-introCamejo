@@ -1,0 +1,23 @@
+meta {
+  name: create crime
+  type: http
+  seq: 4
+}
+
+post {
+  url: http://localhost:3002/api/v1/delitos
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+   "criminal_id":13,
+    "descripcion":  "24 tiros al cráneo",
+    "fecha":  "20/12/2003",
+    "sentencia_judicial": "Guillotina",
+    "lugarDelito": "Flores, CABA",
+    "estadoDelito": "En Pausa",
+    "nivelPrioridad": "Mediano"
+    }
+}

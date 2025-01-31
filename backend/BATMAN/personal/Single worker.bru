@@ -1,0 +1,15 @@
+meta {
+  name: Single worker
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3002/api/v1/personal/:dni
+  body: none
+  auth: none
+}
+
+params:path {
+  dni: 30696285
+}

@@ -1,0 +1,15 @@
+meta {
+  name: delete jail
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3002/api/v1/celdas/:numero_celda
+  body: none
+  auth: none
+}
+
+params:path {
+  numero_celda: 2
+}

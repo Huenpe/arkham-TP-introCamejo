@@ -1,0 +1,21 @@
+meta {
+  name: modify crime
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3002/api/v1/crimes/:crime_number
+  body: json
+  auth: none
+}
+
+params:path {
+  crime_number: 31231231232131
+}
+
+body:json {
+  {
+    "criminal_id": 312431
+  }
+}

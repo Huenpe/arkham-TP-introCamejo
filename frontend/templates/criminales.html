@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
+        <title>Arkham Asylum</title>
+    </head>
+    <body>
+        <div class="contenedor">
+            <nav>
+                <ul>
+                    <li><a href="inicio.html">Inicio</a></li>
+                    <li><a href="criminales.html">Criminales</a></li>
+                    <li><a href="delitos.html">Delitos</a></li>
+                    <li><a href="celdas.html">Celdas</a></li>
+                    <li><a href="personal.html">Personal</a></li>
+                    <li class="cargar"><a href="cargar_criminal.html">Cargar Criminal</a></li>
+                </ul>
+            </nav>
+
+            <main>
+                <header>
+                    <div class="header-overlay">
+                        <div class="header-text">
+                            <h1>Arkham Asylum</h1>
+                            <p>Centro de rehabilitación y tratamiento de individuos con trastornos extremos.</p>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="secciones">
+                    <p class="titulos">Arkham System</p>
+                    <p>
+                        Asilo Arkham, líder mundial en el tratamiento y rehabilitación de individuos con trastornos mentales extremos. Desde 1921, nuestra misión ha sido proporcionar atención especializada combinando ciencia avanzada,
+                        seguridad de máxima categoría y un profundo compromiso con la recuperación de nuestros pacientes.
+                    </p>
+                </section>
+
+                <section class="secciones">
+                    <p class="titulos">Sitio de contension para criminales</p>
+                    <p>En las instalaciones del Asilo Arkham, se registra a los criminales anormales, esos trastornados que le han hecho un gran daño irreparable a la poblacion de Gotham. Con rigurosas medidas de seguridad y protocolos extremos, Artkham asegura que estos individuos permanezcan bajo estricta vigilancia, aislados de la sociedad y completamente controlados</p>
+                </section>
+
+                <section class="tarjetas-criminales">
+                    <h2 class="titulos">Criminales de Arkham</h2>
+                    <div class="tarjetas" id="tarjetas-criminales"></div>
+                </section>
+
+                <form id="formulario-edicion" style="display: none;" onsubmit="actualizarCriminal(event)">
+                    <input type="hidden" name="id" id="criminal-id" />
+
+                    <label for="nombre">Nombre:</label>
+                    <input type="text" name="nombre" id="nombre" required /><br />
+
+                    <label for="apodo">Apodo:</label>
+                    <input type="text" name="apodo" id="apodo" required /><br />
+
+                    <label for="edad">Edad:</label>
+                    <input type="number" name="edad" id="edad" required /><br />
+
+                    <label for="tratamiento">Tratamiento:</label>
+                    <input type="text" name="tratamiento" id="tratamiento" required /><br />
+
+                    <label for="genero">Género:</label>
+                    <input type="text" name="genero" id="genero" required /><br />
+
+                    <label for="peligrosidad">Peligrosidad:</label>
+                    <input type="text" name="peligrosidad" id="peligrosidad" required /><br />
+
+                    <label for="personal_asignado">Personal Asignado:</label>
+                    <input type="text" name="personal_asignado" id="personal_asignado" required /><br />
+
+                    <label for="celda">Celda:</label>
+                    <input type="text" name="celda" id="celda" required /><br />
+
+                    <label for="foto">Foto:</label>
+                    <input type="text" name="foto" id="foto" required /><br />
+
+                    <button type="submit">Actualizar</button>
+                </form>
+            </main>
+
+            <footer>
+                <p>hecho por batman</p>
+            </footer>
+        </div>
+
+        <script>
+            window.onload = function () {
+                MostrarCriminales();
+            };
+
+            MostrarCriminales = function () {
+                fetch("http://127.0.0.1:3002/api/v1/criminales")
+                    .then((response) => response.json())
+                    .then((criminales) => {
+                        let contenedorTarjetas = document.getElementById("tarjetas-criminales");
+                        contenedorTarjetas.innerHTML = "";
+
+                        criminales.forEach((criminal) => {
+                            let tarjeta = document.createElement("div");
+                            tarjeta.classList.add("tarjeta");
+                            tarjeta.id = "criminal-" + criminal.id;
+
+                            let contenido = document.createElement("div");
+                            contenido.classList.add("contenido");
+
+                            let nombre = document.createElement("h3");
+                            nombre.classList.add("nombre");
+                            nombre.textContent = criminal.nombre;
+
+                            let apodo = document.createElement("p");
+                            apodo.classList.add("apodo");
+                            apodo.textContent = `Apodo: (${criminal.apodo})`;
+
+                            let edad = document.createElement("p");
+                            edad.classList.add("descripcion");
+                            edad.textContent = `Edad: ${criminal.edad}`;
+
+                            let genero = document.createElement("p");
+                            genero.classList.add("descripcion");
+                            genero.textContent = `Género: ${criminal.genero}`;
+
+                            let tratamiento = document.createElement("p");
+                            tratamiento.classList.add("descripcion");
+                            tratamiento.textContent = `Tratamiento: ${criminal.tratamiento}`;
+
+                            let peligrosidad = document.createElement("p");
+                            peligrosidad.classList.add("descripcion");
+                            peligrosidad.textContent = `Peligrosidad: ${criminal.peligrosidad}`;
+
+                            let personal_asignado = document.createElement("p");
+                            personal_asignado.classList.add("descripcion");
+                            personal_asignado.textContent = `Personal Asignado: ${criminal.personal_asignado}`;
+
+                            let celda = document.createElement("p");
+                            celda.classList.add("descripcion");
+                            celda.textContent = `Celda: ${criminal.celda}`;
+
+                            let foto = document.createElement("img");
+                            foto.setAttribute("src", criminal.foto);
+                            foto.setAttribute("alt", "Sin imagen");
+                            foto.width = 150;
+                            foto.height = 150;
+
+                            let borrar = document.createElement("button");
+                            borrar.textContent = "Borrar";
+                            borrar.onclick = function () {
+                                borrar_criminal(criminal.id);
+                            };
+
+                            let editar = document.createElement("button");
+                            editar.textContent = "Editar";
+                            editar.onclick = function () {
+                                mostrarFormularioEdicion(criminal);
+                            };
+
+                            contenido.appendChild(nombre);
+                            contenido.appendChild(apodo);
+                            contenido.appendChild(edad);
+                            contenido.appendChild(genero);
+                            contenido.appendChild(tratamiento);
+                            contenido.appendChild(peligrosidad);
+                            contenido.appendChild(personal_asignado);
+                            contenido.appendChild(celda);
+                            contenido.appendChild(foto);
+                            contenido.appendChild(editar);
+                            contenido.appendChild(borrar);
+                            tarjeta.appendChild(contenido);
+                            contenedorTarjetas.appendChild(tarjeta);
+                        });
+                    });
+            };
+
+            function mostrarFormularioEdicion(criminal) {
+                document.getElementById("formulario-edicion").style.display = "block";
+                document.getElementById("criminal-id").value = criminal.id;
+                document.getElementById("nombre").value = criminal.nombre;
+                document.getElementById("apodo").value = criminal.apodo;
+                document.getElementById("edad").value = criminal.edad;
+                document.getElementById("tratamiento").value = criminal.tratamiento;
+                document.getElementById("genero").value = criminal.genero;
+                document.getElementById("peligrosidad").value = criminal.peligrosidad;
+                document.getElementById("personal_asignado").value = criminal.personal_asignado;
+                document.getElementById("celda").value = criminal.celda;
+                document.getElementById("foto").value = criminal.foto;
+            }
+            borrar_criminal = function (id) {
+                alert("Borrando Criminal ID: " + id);
+                fetch("http://127.0.0.1:3002/api/v1/criminales/" + id, { method: "DELETE" })
+                    .then((response) => response.json())
+                    .then((response) => {
+                        console.log(response);
+                        let tarjeta = document.getElementById("criminal-" + response.id);
+                        tarjeta.remove();
+                    });
+            };
+
+            function actualizarCriminal(event) {
+                event.preventDefault();
+
+                let formulario = event.target;
+                let criminalId = formulario["id"].value;
+
+                let datos = {
+                    nombre: formulario["nombre"].value,
+                    apodo: formulario["apodo"].value,
+                    edad: parseInt(formulario["edad"].value),
+                    tratamiento: formulario["tratamiento"].value,
+                    genero: formulario["genero"].value,
+                    peligrosidad: formulario["peligrosidad"].value,
+                    personal_asignado: parseInt(formulario["personal_asignado"].value),
+                    celda: parseInt(formulario["celda"].value),
+                    foto: formulario["foto"].value,
+                };
+
+                fetch(`http://127.0.0.1:3002/api/v1/criminales/${criminalId}`, {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(datos),
+                })
+                    .then((response) => response.json())
+                    .then((updatedCriminal) => {
+                        alert("Criminal actualizado");
+                        document.getElementById("formulario-edicion").style.display = "none";
+                        MostrarCriminales();
+                    });
+            }
+        </script>
+    </body>
+</html>

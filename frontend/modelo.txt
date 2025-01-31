@@ -1,0 +1,102 @@
+Modelo de vistas del proyecto de Arkham
+
+1. index.html
+   Página principal con un punto de entrada para las distintas secciones.
+   - Contenido principal:
+     - Encabezado con el título "Sistema de Arkham".
+     - Un menú de navegación con enlaces a:
+       - "Criminales" (criminals.html)
+       - "Crímenes" (crimes.html)
+       - "Agregar Criminal" (add-criminals.html)
+       - "Primer Piso" (first-floor.html)
+       - "Segundo Piso" (second-floor.html)
+
+---
+
+2. criminals.html
+   Página donde se muestra el listado de criminales.
+   - Contenido principal:
+     - Un encabezado con el título "Listado de Criminales".
+     - Una tabla que muestre:
+       - Nombre completo
+       - Alias o Apodo
+       - Delito
+       - Edad 
+       - Genero 
+       - Tratamiento actual (medicación, terapia, etc.)
+       - Celda asignada
+       - Foto del villano
+   - Interacción con el usuario:
+     - Botón para ver detalles completos de cada criminal (redirige a una vista detallada o abre un modal)
+     - Botón para editar a un criminal
+     - Botón para eliminar a un criminal
+     - Botón para ir a add-criminals.html
+---
+
+3. add-criminals.html
+   Página dedicada a agregar nuevos criminales al sistema.
+   - Contenido principal:
+     - Un encabezado con el título "Agregar Nuevo Criminal".
+     - Un formulario con los siguientes campos:
+       - Nombre completo
+       - Alias o Apodo
+       - Delito
+       - Edad 
+       - Genero 
+       - Tratamiento actual (medicación, terapia, etc.)
+       - Celda asignada
+       - Foto del villano
+     - Interacción con el usuario:
+       - Botón para guardar el nuevo criminal
+       - Validaciones en el formulario (campos obligatorios)
+
+---
+
+4. crimes.html
+   Página donde se gestionan los crímenes registrados en el sistema.
+   - Contenido principal:
+     - Un encabezado con el título "Listado de Crímenes".
+     - Una tabla editable que muestre los crímenes registrados, con columnas:
+       - Nombre del delito (asalto, homicidio, robo, etc.)
+       - Descripción del delito (descripción detallada del delito)
+       - Fecha del crimen cometido
+       - Sentencia judicial
+       - Criminal relacionado (nombre del criminal involucrado)
+       - Acciones (Editar/Eliminar)
+   - Interacción con el usuario:
+     - El usuario puede editar directamente las celdas de la tabla
+     - Botón para eliminar un crimen de la lista
+     - Botón para agregar un nuevo crimen que despliegue un formulario modal (ventana emergente para que el usuario no se vaya de la pagina)
+     - Añadir crimen con un formulario modal (sin salir de la pagina)
+
+---
+
+5. first-floor.html
+   Página que muestra las celdas del primer piso del asilo.
+   - Contenido principal:
+     - Un encabezado con el título "Primer Piso - Celdas".
+     - Un mapa o cuadrícula visual que representa las celdas del primer piso.
+     - Cada celda tiene:
+       - El número de la celda
+       - Nombre del criminal asignado (si lo hay)
+       - Tipo de celda (aislamiento, común, alta seguridad)
+       - Nivel de seguridad (bajo, medio, alto, extrema seguridad)
+       - Estado de la celda (ocupada, libre, en reparación)
+       - capacidad maxima
+   - Interacción con el usuario: a definir
+---
+
+6. second-floor.html
+   Página que muestra las celdas del segundo piso del asilo.
+   - Contenido principal:
+     - Un encabezado con el título "Segundo Piso - Celdas".
+     - Similar a "first-floor.html", muestra un mapa o cuadrícula visual de las celdas del segundo piso.
+     - Cada celda tiene:
+       - El número de la celda
+       - Nombre del criminal asignado (si lo hay).
+       - Tipo de celda (aislamiento, común, alta seguridad).
+       - Nivel de seguridad (bajo, medio, alto, extrema seguridad)
+       - Estado de la celda (ocupada, libre, en reparación).
+       - capacidad maxima
+   - Interacción con el usuario: a definir
+---

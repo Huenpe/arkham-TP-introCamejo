@@ -1,0 +1,15 @@
+meta {
+  name: Single crime
+  type: http
+  seq: 2
+}
+
+get {
+  url: http://localhost:3002/api/v1/crimes/:date
+  body: none
+  auth: none
+}
+
+params:path {
+  date: 
+}

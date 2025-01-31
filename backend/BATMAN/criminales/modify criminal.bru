@@ -1,0 +1,22 @@
+meta {
+  name: modify criminal
+  type: http
+  seq: 5
+}
+
+put {
+  url: http://localhost:3002/api/v1/criminals/:id
+  body: json
+  auth: none
+}
+
+params:path {
+  id: 31321312
+}
+
+body:json {
+  {
+    "jail": 12432321
+    
+  }
+}

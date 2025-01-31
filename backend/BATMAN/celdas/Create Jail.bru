@@ -1,0 +1,24 @@
+meta {
+  name: Create Jail
+  type: http
+  seq: 2
+}
+
+post {
+  url: http://localhost:3002/api/v1/celdas
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "tipoCelda": "muy segura",
+    "descripcionCelda": "un baño dos camas",
+    "nivelSeguridad":"Bajo",
+    "camarasSeguridad":false ,
+    "sensoresMovimiento": false,
+    "alarmas":true,
+    "piso": 2,
+    "capacidad" : 2
+  }
+}
