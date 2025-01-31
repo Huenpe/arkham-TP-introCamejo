@@ -1,100 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
-		<title>Cargar Criminal</title>
-	</head>
-	<body>
-		<div class="contenedor">
-
-			<nav>
-				<ul>
-					<li><a href="inicio.html">Inicio</a></li>
-					<li><a href="criminales.html">Criminales</a></li>
-					<li><a href="delitos.html">Delitos</a></li>
-					<li><a href="celdas.html">Celdas</a></li>
-					<li><a href="personal.html">Personal</a></li>
+        <link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
+        <title>Cargar Criminal</title>
+    </head>
+    <body>
+        <div class="contenedor">
+            <nav>
+                <ul>
+                    <li><a href="inicio.html">Inicio</a></li>
+                    <li><a href="criminales.html">Criminales</a></li>
+                    <li><a href="delitos.html">Delitos</a></li>
+                    <li><a href="celdas.html">Celdas</a></li>
+                    <li><a href="personal.html">Personal</a></li>
                     <li class="cargar"><a href="cargar_criminal.html">Cargar Criminal</a></li>
-				</ul>
-			</nav>
-			<main>
-				<header>
-					<div class="header-overlay">
-						<div class="header-text">
-							<h1>Agregar Criminal</h1>
-							<p>Introduce los datos del criminal que deseas agregar al sistema.</p>
-						</div>
-					</div>
-				</header>
+                </ul>
+            </nav>
+            <main>
+                <header>
+                    <div class="header-overlay">
+                        <div class="header-text">
+                            <h1>Agregar Criminal</h1>
+                            <p>Introduce los datos del criminal que deseas agregar al sistema.</p>
+                        </div>
+                    </div>
+                </header>
 
-				<section class="secciones">
-					<h2 class="titulos">Cargar un criminal</h2>
-					<form id="form-criminal" action="javascript:void(0)">
-						<label for="nombre">Nombre:</label>
-						<input type="text" id="nombre" name="nombre" required>
+                <section class="secciones">
+                    <h2 class="titulos">Estos datos estaran bajo la lupa de "Jim" Gordon​</h2>
+                    <form id="form-criminal" action="javascript:void(0)">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre" required required pattern="^[a-zA-Z\s]+$" />
 
-						<label for="apodo">Apodo:</label>
-						<input type="text" id="apodo" name="apodo" required>
+                        <label for="apodo">Apodo:</label>
+                        <input type="text" id="apodo" name="apodo" required required pattern="^[a-zA-Z\s]+$" />
 
-						<label for="edad">Edad:</label>
-						<input type="number" id="edad" name="edad" required>
+                        <label for="edad">Edad:</label>
+                        <input type="number" id="edad" name="edad" required />
 
-						<label for="genero">Género:</label>
-						<input type="text" id="genero" name="genero" required>
+                        <label for="genero">Género:</label>
+                        <select id="genero" name="genero" required>
+                            <option value="" disabled selected>Selecciona una opción</option>
+                            <option value="masculino">Masculino</option>
+                            <option value="femenino">Femenino</option>
+                        </select>
 
-						<label for="tratamiento">Tratamiento:</label>
-						<input type="text" id="tratamiento" name="tratamiento" required>
+                        <label for="tratamiento">Tratamiento:</label>
+                        <input type="text" id="tratamiento" name="tratamiento" required pattern="^[a-zA-Z\s]+$" />
 
-						<label for="peligrosidad">Peligrosidad:</label>
-						<input type="text" id="peligrosidad" name="peligrosidad" required>
+                        <label for="peligrosidad">Peligrosidad:</label>
+                        <select id="peligrosidad" name="peligrosidad" required>
+                            <option value="">Selecciona nivel de Peligrosidad</option>
+                            <option value="Bajo">Bajo</option>
+                            <option value="Medio">Medio</option>
+                            <option value="Peligroso">Peligroso</option>
+                            <option value="Extremadamente Peligroso">Extremadamente Peligroso</option>
+                        </select>
 
-						<label for="personal_asignado">Personal Asignado (ID):</label>
-						<input type="number" id="personal_asignado" name="personal_asignado" required>
+                        <label for="personal_asignado">Personal Asignado (DNI):</label>
+                        <select id="personal_asignado" name="personal_asignado" required>
+                            <option value="">Selecciona un personal</option>
+                        </select>
 
-						<label for="celda">Celda:</label>
-						<input type="number" id="celda" name="celda" required>
+                        <label for="celdas">Celda:</label>
+                        <select id="celdas" name="celdas_disponibles" required>
+                            <option value="">Selecciona las celdas Disponibles</option>
+                        </select>
 
-						<button type="submit">Cargar Criminal</button>
-					</form>
-				</section>
+                        <label for="URl Foto Criminal">Url foto del Criminal (Opcional):</label>
+                        <input type="text" id="url-foto" name="url-foto" />
+                        <button type="submit">Cargar Criminal</button>
+                    </form>
+                </section>
+            </main>
 
-			</main>
+            <footer>
+                <p>hecho por batman</p>
+            </footer>
+        </div>
 
-			<footer>
-				<p>hecho por batman</p>
-			</footer>
-		</div>
+        <script>
+            document.getElementById("form-criminal").addEventListener("submit", function (event) {
+                event.preventDefault();
 
-		<script>
-			document.getElementById('form-criminal').addEventListener('submit', function(event) {
-				event.preventDefault();
+                const criminalData = {
+                    nombre: document.getElementById("nombre").value,
+                    apodo: document.getElementById("apodo").value,
+                    edad: parseInt(document.getElementById("edad").value),
+                    genero: document.getElementById("genero").value,
+                    tratamiento: document.getElementById("tratamiento").value,
+                    peligrosidad: document.getElementById("peligrosidad").value,
+                    personal_asignado: parseInt(document.getElementById("personal_asignado").value),
+                    celda: parseInt(document.getElementById("celdas").value),
+                    foto: document.getElementById("url-foto").value,
+                };
 
-				const criminalData = {
-					nombre: document.getElementById('nombre').value,
-					apodo: document.getElementById('apodo').value,
-					edad: parseInt(document.getElementById('edad').value), 
-					genero: document.getElementById('genero').value,
-					tratamiento: document.getElementById('tratamiento').value,
-					peligrosidad: document.getElementById('peligrosidad').value,
-					personal_asignado: parseInt(document.getElementById('personal_asignado').value),
-					celda: parseInt(document.getElementById('celda').value)
-				};
+                fetch("http://127.0.0.1:3002/api/v1/criminales", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(criminalData),
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        alert("Criminal agregado correctamente");
+                        window.location.href = "criminales.html";
+                    });
+            });
 
-				fetch('http://127.0.0.1:3002/api/v1/criminales', {
-					method: 'POST',
-					headers: {
-						'Content-Type': 'application/json',
-					},
-					body: JSON.stringify(criminalData)
-				})
-				.then(response => response.json())
-				.then(data => {
-					alert('Criminal agregado correctamente');
-					window.location.href = 'criminales.html';
-				})
-			});
-		</script>
-	</body>
+            fetch("http://127.0.0.1:3002/api/v1/personal")
+                .then((response) => response.json())
+                .then((personal) => {
+                    let select = document.getElementById("personal_asignado");
+                    personal.forEach((persona) => {
+                        console.log(persona);
+                        let option = document.createElement("option");
+                        option.value = persona.dni; // El ID del personal será el valor
+                        option.textContent = `${persona.dni} - ${persona.nombre}`; // Muestra el ID y el nombre
+                        select.appendChild(option);
+                    }); // Agrega la opción al select
+                });
+
+            fetch("http://127.0.0.1:3002/api/v1/celdas")
+                .then((response) => response.json())
+                .then((celdas) => {
+                    let select = document.getElementById("celdas");
+                    celdas.forEach((celda) => {
+                        console.log(celda);
+                        let option = document.createElement("option");
+                        option.value = celda.numero_celda; // El ID del personal será el valor
+                        option.textContent = `celda N°: ${celda.numero_celda}`; // Muestra el ID y el nombre
+                        select.appendChild(option);
+                    }); // Agrega la opción al select
+                });
+        </script>
+    </body>
 </html>

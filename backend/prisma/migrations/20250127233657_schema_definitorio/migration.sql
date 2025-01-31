@@ -7,8 +7,9 @@ CREATE TABLE "Criminal" (
     "genero" TEXT NOT NULL,
     "tratamiento" TEXT NOT NULL,
     "peligrosidad" TEXT NOT NULL,
-    "personal_asignado" INTEGER NOT NULL,
-    "celda" INTEGER NOT NULL,
+    "personal_asignado" INTEGER,
+    "celda" INTEGER,
+    "foto" TEXT,
 
     CONSTRAINT "Criminal_pkey" PRIMARY KEY ("id")
 );
@@ -54,10 +55,10 @@ CREATE TABLE "Celda" (
 );
 
 -- AddForeignKey
-ALTER TABLE "Criminal" ADD CONSTRAINT "Criminal_personal_asignado_fkey" FOREIGN KEY ("personal_asignado") REFERENCES "Personal"("dni") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Criminal" ADD CONSTRAINT "Criminal_personal_asignado_fkey" FOREIGN KEY ("personal_asignado") REFERENCES "Personal"("dni") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Criminal" ADD CONSTRAINT "Criminal_celda_fkey" FOREIGN KEY ("celda") REFERENCES "Celda"("numero_celda") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Criminal" ADD CONSTRAINT "Criminal_celda_fkey" FOREIGN KEY ("celda") REFERENCES "Celda"("numero_celda") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Delito" ADD CONSTRAINT "Delito_criminal_id_fkey" FOREIGN KEY ("criminal_id") REFERENCES "Criminal"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Delito" ADD CONSTRAINT "Delito_criminal_id_fkey" FOREIGN KEY ("criminal_id") REFERENCES "Criminal"("id") ON DELETE CASCADE ON UPDATE CASCADE;

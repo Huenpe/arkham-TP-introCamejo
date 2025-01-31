@@ -1,161 +1,294 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
-		<title>Arkham Asylum</title>
-	</head>
-	<body>
-		<div class="contenedor">
-
-					
-			<nav>
-				<ul>
-					<li><a href="inicio.html">Inicio</a></li>
-					<li><a href="criminales.html">Criminales</a></li>
-					<li><a href="delitos.html">Delitos</a></li>
-					<li><a href="celdas.html">Celdas</a></li>
-					<li><a href="personal.html">Personal</a></li>
+        <link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
+        <title>Arkham Asylum</title>
+    </head>
+    <body>
+        <div class="contenedor">
+            <nav>
+                <ul>
+                    <li><a href="inicio.html">Inicio</a></li>
+                    <li><a href="criminales.html">Criminales</a></li>
+                    <li><a href="delitos.html">Delitos</a></li>
+                    <li><a href="celdas.html">Celdas</a></li>
+                    <li><a href="personal.html">Personal</a></li>
                     <li class="cargar"><a href="cargar_criminal.html">Cargar Criminal</a></li>
-				</ul>
-			</nav>
-			<main>
-				<header>
-					<div class="header-overlay">
-						<div class="header-text">
-							<h1>Arkham Asylum</h1>
-							<p>Centro de rehabilitación y tratamiento de individuos con trastornos extremos.</p>
-						</div>
-					</div>
-				</header>
-				<section class="secciones">
-					<p class="titulos">Arkhan System</p>
-					<p>
-                        Asilo Arkham, líder mundial en el tratamiento y rehabilitación de individuos con trastornos mentales extremos. Desde 1921, nuestra misión ha sido proporcionar atención especializada combinando ciencia avanzada, seguridad de máxima categoría y un profundo compromiso con la recuperación de nuestros pacientes.
-					</p>
-				</section>
-				<section class="secciones">
-					<p class="titulos">Informacion general</p>
-					lego batman
+                </ul>
+            </nav>
+            <main>
+                <header>
+                    <div class="header-overlay">
+                        <div class="header-text">
+                            <h1>Arkham Asylum</h1>
+                            <p>Centro de rehabilitación y tratamiento de individuos con trastornos extremos.</p>
+                        </div>
+                    </div>
+                </header>
+                <section class="secciones">
+                    <p class="titulos">Registro de delitos</p>
+                    <p>
+                        En esta sección se registran y gestionan los delitos cometidos por los criminales ingresados en el Asilo Arkham. Aquí se almacenan los detalles de cada incidente, incluyendo la descripción, fecha, sentencia judicial y lugar del crimen. Además, se asignan niveles de prioridad, asegurando que los casos más urgentes reciban atención inmediata. 
+                    </p>
+                    <p class="titulos">Carga de delitos</p>
+                    <p>Introduce los datos para cargar un nuevo delito, este debera ser asociado a un criminal:</p>
 
-				</section>
-				<section class="seccion-delitos">
-					<h2 class="titulos">Lista de Delitos</h2>
-					<ul class="lista-delitos">
-						<li>
-							<span class="nombre">Oswald Cobblepot</span>
-							<span class="apodo">(El Pingüino)</span> - Contrabando de armas y extorsión
-						</li>
-						<li>
-							<span class="nombre">Harleen Quinzel</span>
-							<span class="apodo">(Harley Quinn)</span> - Secuestro y asalto agravado
-						</li>
-						<li>
-							<span class="nombre">Edward Nigma</span>
-							<span class="apodo">(El Acertijo)</span> - Cibercrimen y chantaje
-						</li>
-						<li>
-							<span class="nombre">Pamela Isley</span>
-							<span class="apodo">(Hiedra Venenosa)</span> - Eco-terrorismo
-						</li>
-						<li>
-							<span class="nombre">Jonathan Crane</span>
-							<span class="apodo">(El Espantapájaros)</span> - Uso de sustancias tóxicas y experimentos ilegales
-						</li>
-						<li>
-							<span class="nombre">Waylon Jones</span>
-							<span class="apodo">(Killer Croc)</span> - Asesinato y canibalismo
-						</li>
-						<li>
-							<span class="nombre">Selina Kyle</span>
-							<span class="apodo">(Gatúbela)</span> - Robo de arte y joyas
-						</li>
-						<li>
-							<span class="nombre">Victor Fries</span>
-							<span class="apodo">(Mr. Freeze)</span> - Robo de tecnología avanzada y sabotaje
-						</li>
-						<li>
-							<span class="nombre">Jervis Tetch</span>
-							<span class="apodo">(Sombrerero Loco)</span> - Secuestro y manipulación mental
-						</li>
-						<li>
-							<span class="nombre">Roman Sionis</span>
-							<span class="apodo">(Máscara Negra)</span> - Crimen organizado y tortura
-						</li>
-					</ul>
-				</section>
+                    <button id="mostrarFormulario">Cargar Delito</button>
 
-				<section class="secciones">
-					<p class="titulos">Delitos</p>
-					<table class="tabla-delitos">
-						<thead>
-							<tr>
-								<th>Criminal n°</th>
-								<th>Descripcion</th>
-								<th>Fecha</th>
-								<th>Sentencia</th>
-								<th>Lugar</th>
-								<th>Estado</th>
-								<th>Prioridad</th>
+                    <!-- FORMULARIO OCULTO -->
+                    <div id="formularioDelito" style="display: none;">
+                        <form id="formDelito">
+                            <label for="criminal_id">Criminal:</label>
+                            
+                            <select id="criminal_id" name="criminal_id" >
+                                <option value="" disabled selected>Selecciona un criminal</option>
+                            </select>
+                            <br />
 
+                            <label for="descripcion">Descripción:</label>
+                            <textarea id="descripcion" name="descripcion" required></textarea><br />
 
-							</tr>
-						</thead>
-						<tbody id="delitos-data">
-						</tbody>
-					</table>
-				</section>
-			</main>
+                            <label for="fecha">Fecha:</label>
+                            <input type="date" id="fecha" name="fecha" required /><br />
 
-			<footer>
-				<p>hecho por batman</p>
-			</footer>
-		</div>
-		<script>
-			fetch('http://127.0.0.1:3002/api/v1/delitos')
-			.then(response => response.json())
-			.then(delitos => {
-				console.log(delitos);
-	
-				let tabla = document.getElementById('delitos-data');
-				delitos.forEach(delito => {
-					let tr = document.createElement('tr');
-	
-					let criminal_id = document.createElement('td');
-					criminal_id.textContent = delito.criminal_id;  
-	
-					let descripcion = document.createElement('td');
-					descripcion.textContent = delito.descripcion;
-	
-					let fecha = document.createElement('td');
-					fecha.textContent = delito.fecha;  
-	
-					let sentencia_judicial = document.createElement('td');
-					sentencia_judicial.textContent = delito.sentencia_judicial;  
-	
-					let lugarDelito = document.createElement('td');
-					lugarDelito.textContent = delito.lugarDelito;
+                            <label for="sentencia">Sentencia Judicial:</label>
+                            <input type="text" id="sentencia" name="sentencia" required /><br />
 
-					let estadoDelito = document.createElement('td');
-					estadoDelito.textContent = delito.estadoDelito;
-					
+                            <label for="lugarDelito">Lugar del Delito:</label>
+                            <input type="text" id="lugarDelito" name="lugarDelito" required /><br />
 
-					let nivelPrioridad = document.createElement('td');
-					nivelPrioridad.textContent = delito.nivelPrioridad;
-	
-					tr.appendChild(criminal_id);
-					tr.appendChild(descripcion);
-					tr.appendChild(fecha);
-					tr.appendChild(sentencia_judicial);
-					tr.appendChild(lugarDelito);
-					tr.appendChild(estadoDelito);
-					tr.appendChild(nivelPrioridad);
- 
+                            <label for="estadoDelito">Estado del Delito:</label>
+                            <input type="text" id="estadoDelito" name="estadoDelito" required /><br />
 
-					tabla.appendChild(tr);  
-				});
-			})
-		</script>
-	</body>
+                            <label for="prioridad">Prioridad:</label>
+                            <select id="prioridad" name="prioridad" required>
+                                <option value="baja">Baja</option>
+                                <option value="media">Media</option>
+                                <option value="alta">Alta</option>
+                            </select>
+                            <br />
+
+                            <button type="submit">Enviar Delito</button>
+                            <button type="button" id="cancelarFormulario">Cancelar</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="secciones">
+                    <p class="titulos">Delitos</p>
+                    <table class="tabla-generica">
+                        <thead>
+                            <tr>
+                                <th>Criminal n°</th>
+                                <th>Descripcion</th>
+                                <th>Fecha</th>
+                                <th>Sentencia</th>
+                                <th>Lugar</th>
+                                <th>Estado</th>
+                                <th>Prioridad</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="delitos-data"></tbody>
+                    </table>
+                </section>
+            </main>
+
+            <footer>
+                <p>hecho por batman</p>
+            </footer>
+        </div>
+        <script>
+            // ACTUALIZAR CONTENIDO DE LA TABLA
+            function actualizarDelitos() {
+                fetch("http://127.0.0.1:3002/api/v1/delitos")
+                    .then((response) => response.json())
+                    .then((delitos) => {
+                        let tabla = document.getElementById("delitos-data");
+                        tabla.innerHTML = ""; 
+                        delitos.forEach((delito) => {
+                            let tr = document.createElement("tr");
+        
+                            let criminal_id = document.createElement("td");
+                            criminal_id.textContent = delito.criminal_id ;
+        
+                            let descripcion = document.createElement("td");
+                            descripcion.textContent = delito.descripcion;
+                            descripcion.className = "td-descripcion"; 
+        
+                            let fecha = document.createElement("td");
+                            fecha.textContent = delito.fecha;
+        
+                            let sentencia_judicial = document.createElement("td");
+                            sentencia_judicial.textContent = delito.sentencia_judicial;
+        
+                            let lugarDelito = document.createElement("td");
+                            lugarDelito.textContent = delito.lugarDelito;
+        
+                            let estadoDelito = document.createElement("td");
+                            estadoDelito.textContent = delito.estadoDelito;
+        
+                            let nivelPrioridad = document.createElement("td");
+                            nivelPrioridad.textContent = delito.nivelPrioridad;
+        
+                            // COLUMNA DE ACCIONES CON BOTONES
+                            let acciones = document.createElement("td");
+        
+                            
+                            let editarBtn = document.createElement("button");
+                            editarBtn.textContent = "Editar";
+                            editarBtn.onclick = () => editarDelito(delito.numero_delito);
+                            acciones.appendChild(editarBtn);
+        
+                            let eliminarBtn = document.createElement("button");
+                            eliminarBtn.textContent = "Eliminar";
+                            eliminarBtn.onclick = () => eliminarDelito(delito.numero_delito);
+                            acciones.appendChild(eliminarBtn);
+        
+                            tr.appendChild(criminal_id);
+                            tr.appendChild(descripcion);
+                            tr.appendChild(fecha);
+                            tr.appendChild(sentencia_judicial);
+                            tr.appendChild(lugarDelito);
+                            tr.appendChild(estadoDelito);
+                            tr.appendChild(nivelPrioridad);
+                            tr.appendChild(acciones); 
+        
+                            tabla.appendChild(tr);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error al actualizar la lista de delitos:", error);
+                    });
+            }
+        
+            fetch("http://127.0.0.1:3002/api/v1/criminales")
+                .then((response) => response.json())
+                .then((criminales) => {
+                    let selectCriminal = document.getElementById("criminal_id");
+                    criminales.forEach((criminal) => {
+                        let option = document.createElement("option");
+                        option.value = criminal.id;
+                        option.textContent = ` ${criminal.nombre}  (${criminal.apodo})`;
+                        selectCriminal.appendChild(option);
+                    });
+                })
+                .catch((error) => {
+                    console.error("Error al cargar los criminales:", error);
+                });
+        
+            // MOSTRAR EL FOMRULARIO DE CARGAR DELITO
+            document.getElementById("mostrarFormulario").addEventListener("click", function () {
+                document.getElementById("formularioDelito").style.display = "block";
+                document.getElementById("formDelito").reset();
+                document.getElementById("formDelito").dataset.action = "create";
+            });
+
+            //BOTON PARA CANCELAR
+            document.getElementById("cancelarFormulario").addEventListener("click", function () {
+                document.getElementById("formularioDelito").style.display = "none";
+                document.getElementById("formDelito").reset();
+            });
+            
+        
+            // ENVIAR EL FORMULARIO Y CREAR/ACTUALIZAR DELITO
+            document.getElementById("formDelito").addEventListener("submit", function (event) {
+                event.preventDefault(); 
+        
+                const action = event.target.dataset.action; // VERIFICA SI ES CREATE O UPDATE
+                const numeroDelito = event.target.dataset.numeroDelito; 
+        
+                const newDelito = {
+                    criminal_id: parseInt(document.getElementById("criminal_id").value),
+                    descripcion: document.getElementById("descripcion").value,
+                    fecha: document.getElementById("fecha").value,
+                    sentencia_judicial: document.getElementById("sentencia").value,
+                    lugarDelito: document.getElementById("lugarDelito").value,
+                    estadoDelito: document.getElementById("estadoDelito").value,
+                    nivelPrioridad: document.getElementById("prioridad").value,
+                };
+        
+                if (action === "update") {
+                    // ACTUALIZAR DELITO
+                    fetch(`http://127.0.0.1:3002/api/v1/delitos/${numeroDelito}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(newDelito),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            alert("Delito actualizado!");
+                            actualizarDelitos();
+                            document.getElementById("formularioDelito").style.display = "none";
+                        })
+                        .catch((error) => {
+                            console.error("Error al actualizar el delito:", error);
+                            alert("Hubo un error al actualizar el delito.");
+                        });
+                } else {
+                    // CREAR DELITO
+                    fetch("http://127.0.0.1:3002/api/v1/delitos", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(newDelito),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            alert("Delito cargado con éxito!");
+                            document.getElementById("formularioDelito").style.display = "none";
+                            actualizarDelitos(); 
+                        })
+                        .catch((error) => {
+                            console.error("Error al cargar delito:", error);
+                            alert("Hubo un error al cargar el delito.");
+                        });
+                }
+            });
+        
+            // ELIMINAR DELITO
+            function eliminarDelito(numeroDelito) {
+                fetch(`http://127.0.0.1:3002/api/v1/delitos/${numeroDelito}`, {
+                    method: "DELETE",
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        alert("Delito eliminado!");
+                        actualizarDelitos(); 
+                    })
+                    .catch((error) => {
+                        console.error("Error al eliminar el delito:", error);
+                        alert("Hubo un error al eliminar el delito.");
+                    });
+            }
+        
+            // EDITAR DELITO
+            function editarDelito(numeroDelito) {
+                fetch(`http://127.0.0.1:3002/api/v1/delitos/${numeroDelito}`)
+                    .then((response) => response.json())
+                    .then((delito) => {
+                        document.getElementById("criminal_id").value = delito.criminal_id;
+                        document.getElementById("descripcion").value = delito.descripcion;
+                        document.getElementById("fecha").value = delito.fecha;
+                        document.getElementById("sentencia").value = delito.sentencia_judicial;
+                        document.getElementById("lugarDelito").value = delito.lugarDelito;
+                        document.getElementById("estadoDelito").value = delito.estadoDelito;
+                        document.getElementById("prioridad").value = delito.nivelPrioridad;
+        
+                        document.getElementById("formDelito").dataset.action = "update";
+                        document.getElementById("formDelito").dataset.numeroDelito = numeroDelito;
+        
+                        document.getElementById("formularioDelito").style.display = "block";
+                    });
+            }
+        
+            window.addEventListener("load", actualizarDelitos);
+        </script>
+        
+    </body>
 </html>

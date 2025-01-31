@@ -1,132 +1,306 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
-		<title>Arkham Asylum</title>
-	</head>
-	<body>
-		<div class="contenedor">
-
-			<nav>
-				<ul>
-					<li><a href="inicio.html">Inicio</a></li>
-					<li><a href="criminales.html">Criminales</a></li>
-					<li><a href="delitos.html">Delitos</a></li>
-					<li><a href="celdas.html">Celdas</a></li>
-					<li><a href="personal.html">Personal</a></li>
+        <link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
+        <title>Arkham Asylum</title>
+    </head>
+    <body>
+        <div class="contenedor">
+            <nav>
+                <ul>
+                    <li><a href="inicio.html">Inicio</a></li>
+                    <li><a href="criminales.html">Criminales</a></li>
+                    <li><a href="delitos.html">Delitos</a></li>
+                    <li><a href="celdas.html">Celdas</a></li>
+                    <li><a href="personal.html">Personal</a></li>
                     <li class="cargar"><a href="cargar_criminal.html">Cargar Criminal</a></li>
-				</ul>
-			</nav>
-			<main>
-				<header>
-					<div class="header-overlay">
-						<div class="header-text">
-							<h1>Arkham Asylum</h1>
-							<p>Centro de rehabilitación y tratamiento de individuos con trastornos extremos.</p>
-						</div>
-					</div>
-				</header>
-				<section class="secciones">
-					<p class="titulos">Arkhan System</p>
-					<p>
-                        Asilo Arkham, líder mundial en el tratamiento y rehabilitación de individuos con trastornos mentales extremos. Desde 1921, nuestra misión ha sido proporcionar atención especializada combinando ciencia avanzada, seguridad de máxima categoría y un profundo compromiso con la recuperación de nuestros pacientes.
-					</p>
-				</section>
-				<section class="secciones">
-					<p class="titulos">Informacion general</p>
-					lego batman
+                </ul>
+            </nav>
+            <main>
+                <header>
+                    <div class="header-overlay">
+                        <div class="header-text">
+                            <h1>Arkham Asylum</h1>
+                            <p>Centro de rehabilitación y tratamiento de individuos con trastornos extremos.</p>
+                        </div>
+                    </div>
+                </header>
+                <section class="secciones">
+                    <p class="titulos">Arkham System</p>
+                    <p>
+                        Asilo Arkham, líder mundial en el tratamiento y rehabilitación de individuos con trastornos mentales extremos. Desde 1921, nuestra misión ha sido proporcionar atención especializada combinando ciencia avanzada,
+                        seguridad de máxima categoría y un profundo compromiso con la recuperación de nuestros pacientes.
+                    </p>
+                </section>
+                <section class="secciones">
+                    <p class="titulos">Informacion general</p>
+                    lego batman
+                    <button id="mostrarFormulario">¡Cargar Celda!</button>
 
-				</section>
+                    <!-- FORMULARIO OCULTO -->
+                    <div id="formularioCelda" style="display: none;">
+                        <form id="formCelda">
+                            <label for="tipoCelda">Tipo de Celda:</label><br />
+                            <input type="text" id="tipoCelda" name="tipoCelda" required />
 
+                            <label for="descripcionCelda">Descripcion de Celda:</label>
+                            <input type="text" id="descripcionCelda" name="descripcionCelda" required /><br />
 
-				<section class="secciones">
-					<p class="titulos">Celdas</p>
-					<table class="tabla-celdas">
-						<thead>
-							<tr>
-								<th>Tipo de celda</th>
-								<th>Descripcion</th>
-								<th>Seguridad</th>
-								<th>Cámaras</th>
-								<th>Sensores</th>
-								<th>Alarmas</th>
-								<th>Piso</th>
-								<th>Capacidad</th>
-								<th>Numero de Celda</th>
+                            <label for="nivelSeguridad">Nivel de Seguridad:</label>
+                            <select id="nivelSeguridad" name="nivelSeguridad" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="baja">Baja</option>
+                                <option value="mediana">Mediana</option>
+                                <option value="mucha">Mucha</option>
+                                <option value="24/7">24/7</option>
+                            </select>
 
+                            <label for="camarasSeguridad">¿Posee Cámaras?:</label>
+                            <select id="camarasSeguridad" name="camarasSeguridad" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
 
-							</tr>s
-						</thead>
-						<tbody id="celdas-data">
-							
-						</tbody>
-					</table>
-				</section>
-			</main>
+                            <label for="sensoresMovimiento">¿Posee sensores de Movimiento?:</label>
+                            <select id="sensoresMovimiento" name="sensoresMovimiento" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
 
-			<footer>
-				<p>hecho por batman</p>
-			</footer>
-		</div>
-		<script>
-			fetch('http://127.0.0.1:3002/api/v1/celdas')
-			.then(res => res.json())
-			.then(celdas => {
-				console.log(celdas)
-				
-				let tabla = document.getElementById('celdas-data');
-				let index = 1;
-				celdas.forEach(celda => {
-					let tr = document.createElement('tr');
-	
-					let tipoCelda = document.createElement('td');
-					tipoCelda.textContent = celda.tipoCelda;  
-	
-					let descripcionCelda = document.createElement('td');
-					descripcionCelda.textContent = celda.descripcionCelda;
-	
-					let nivelSeguridad = document.createElement('td');
-					nivelSeguridad.textContent = celda.nivelSeguridad;  
-	
-					let camarasSeguridad = document.createElement('td');
-					camarasSeguridad.textContent = celda.camarasSeguridad;  
-	
-					let sensoresMovimiento = document.createElement('td');
-					sensoresMovimiento.textContent = celda.sensoresMovimiento;
+                            <label for="alarmas">¿Posee alarmas?:</label>
+                            <select id="alarmas" name="alarmas" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="true">Sí</option>
+                                <option value="false">No</option>
+                            </select>
 
+                            <label for="piso">Piso:</label><br />
+                            <input type="number" id="piso" name="piso" required />
 
-					let alarmas = document.createElement('td');
-					alarmas.textContent = celda.alarmas;
+                            <label for="capacidad">Capacidad:</label><br />
+                            <input type="number" id="capacidad" name="capacidad" required />
 
-					let piso = document.createElement('td');
-					piso.textContent = celda.piso;
+                            <button type="submit">Crear Nueva Celda</button>
+                            <button type="button" id="cancelarFormulario">Cancelar</button>
+                        </form>
+                    </div>
+                </section>
 
-					let capacidad = document.createElement('td');
-					capacidad.textContent = celda.capacidad;
+                <section class="secciones">
+                    <p class="titulos">Celdas</p>
+                    <table class="tabla-generica">
+                        <thead>
+                            <tr>
+                                <th>Tipo de celda</th>
+                                <th>Descripcion</th>
+                                <th>Seguridad</th>
+                                <th>Cámaras</th>
+                                <th>Sensores</th>
+                                <th>Alarmas</th>
+                                <th>Piso</th>
+                                <th>Capacidad</th>
+                                <th>Numero de Celda</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="celdas-data"></tbody>
+                    </table>
+                </section>
+            </main>
 
-					let numero_celda = document.createElement('td');
-					numero_celda.textContent = index;
-					index++
+            <footer>
+                <p>hecho por batman</p>
+            </footer>
+        </div>
+        <script>
+            // Función para actualizar las celdas
+            function actualizarCeldas() {
+                fetch("http://127.0.0.1:3002/api/v1/celdas")
+                    .then((response) => response.json())
+                    .then((celdas) => {
+                        let tabla = document.getElementById("celdas-data");
+                        tabla.innerHTML = ""; // Limpiar la tabla antes de actualizar
+                        celdas.forEach((celda) => {
+                            let tr = document.createElement("tr");
 
-					
-	
-					tr.appendChild(tipoCelda);
-					tr.appendChild(descripcionCelda);
-					tr.appendChild(nivelSeguridad);
-					tr.appendChild(camarasSeguridad);
-					tr.appendChild(sensoresMovimiento);
-					tr.appendChild(alarmas);
-					tr.appendChild(piso);
-					tr.appendChild(capacidad);
-					tr.appendChild(numero_celda);
+                            let tipoCelda = document.createElement("td");
+                            tipoCelda.textContent = celda.tipoCelda;
 
+                            let descripcionCelda = document.createElement("td");
+                            descripcionCelda.textContent = celda.descripcionCelda;
 
-	
-					tabla.appendChild(tr);  
-				});
-			})
-		</script>
-	</body>
+                            let nivelSeguridad = document.createElement("td");
+                            nivelSeguridad.textContent = celda.nivelSeguridad;
+
+                            let camarasSeguridad = document.createElement("td");
+                            camarasSeguridad.textContent = celda.camarasSeguridad;
+
+                            let sensoresMovimiento = document.createElement("td");
+                            sensoresMovimiento.textContent = celda.sensoresMovimiento;
+
+                            let alarmas = document.createElement("td");
+                            alarmas.textContent = celda.alarmas;
+
+                            let piso = document.createElement("td");
+                            piso.textContent = celda.piso;
+
+                            let capacidad = document.createElement("td");
+                            capacidad.textContent = celda.capacidad;
+
+                            let numero_celda = document.createElement("td");
+                            numero_celda.textContent = celda.numero_celda;
+
+                            // COLUMNA DE ACCIONES
+                            let acciones = document.createElement("td");
+
+                            let editarBtn = document.createElement("button");
+                            editarBtn.textContent = "Editar";
+                            editarBtn.onclick = () => editarCelda(celda.numero_celda);
+                            acciones.appendChild(editarBtn);
+
+                            let eliminarBtn = document.createElement("button");
+                            eliminarBtn.textContent = "Eliminar";
+                            eliminarBtn.onclick = () => eliminarCelda(celda.numero_celda);
+                            acciones.appendChild(eliminarBtn);
+
+                            tr.appendChild(tipoCelda);
+                            tr.appendChild(descripcionCelda);
+                            tr.appendChild(nivelSeguridad);
+                            tr.appendChild(camarasSeguridad);
+                            tr.appendChild(sensoresMovimiento);
+                            tr.appendChild(alarmas);
+                            tr.appendChild(piso);
+                            tr.appendChild(capacidad);
+                            tr.appendChild(numero_celda);
+                            tr.appendChild(acciones); // Añadir la columna de acciones
+
+                            tabla.appendChild(tr);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error al actualizar la lista de Celdas:", error);
+                    });
+            }
+
+            // Función para eliminar una celda
+            function eliminarCelda(numero_celda) {
+                fetch(`http://127.0.0.1:3002/api/v1/celdas/${numero_celda}`, {
+                    method: "DELETE",
+                })
+                    .then((response) => response.json())
+                    .then(() => {
+                        alert("Celda eliminada!");
+                        actualizarCeldas();
+                    })
+                    .catch((error) => {
+                        console.error("Error al eliminar las celdas:", error);
+                        alert("Hubo un error al eliminar las celdas.");
+                    });
+            }
+
+            // Función para editar una celda
+            function editarCelda(numero_celda) {
+                fetch(`http://127.0.0.1:3002/api/v1/celdas/${numero_celda}`)
+                    .then((response) => response.json())
+                    .then((celda) => {
+                        document.getElementById("tipoCelda").value = celda.tipoCelda;
+                        document.getElementById("descripcionCelda").value = celda.descripcionCelda;
+                        document.getElementById("nivelSeguridad").value = celda.nivelSeguridad;
+                        document.getElementById("camarasSeguridad").value = celda.camarasSeguridad;
+                        document.getElementById("sensoresMovimiento").value = celda.sensoresMovimiento;
+                        document.getElementById("alarmas").value = celda.alarmas;
+                        document.getElementById("piso").value = celda.piso;
+                        document.getElementById("capacidad").value = celda.capacidad;
+
+                        document.getElementById("formCelda").dataset.action = "update";
+                        document.getElementById("formCelda").dataset.numero_celda = numero_celda;
+
+                        // Muestra el formulario
+                        document.getElementById("formularioCelda").style.display = "block";
+
+                        // Desplazarse hacia el formulario
+                        document.getElementById("formularioCelda").scrollIntoView({ behavior: "smooth" });
+                    })
+                    .catch((error) => {
+                        console.error("Error al obtener la celda:", error);
+                    });
+            }
+
+            // Enviar el formulario para crear o actualizar una celda
+            document.getElementById("formCelda").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const action = event.target.dataset.action;
+                const numero_celda = event.target.dataset.numero_celda;
+
+                const nuevaCelda = {
+                    tipoCelda: document.getElementById("tipoCelda").value,
+                    descripcionCelda: document.getElementById("descripcionCelda").value,
+                    nivelSeguridad: document.getElementById("nivelSeguridad").value,
+                    camarasSeguridad: document.getElementById("camarasSeguridad").value,
+                    sensoresMovimiento: document.getElementById("sensoresMovimiento").value,
+                    alarmas: document.getElementById("alarmas").value,
+                    piso: parseInt(document.getElementById("piso").value),
+                    capacidad: parseInt(document.getElementById("capacidad").value),
+                };
+
+                if (action === "update") {
+                    // Actualizar la celda
+                    fetch(`http://127.0.0.1:3002/api/v1/celdas/${numero_celda}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(nuevaCelda),
+                    })
+                        .then(() => {
+                            alert("Celda actualizada!");
+                            actualizarCeldas();
+                            document.getElementById("formularioCelda").style.display = "none";
+                        })
+                        .catch((error) => {
+                            console.error("Error al actualizar la celda:", error);
+                            alert("Hubo un error al actualizar la celda.");
+                        });
+                } else {
+                    // Crear nueva celda
+                    fetch("http://127.0.0.1:3002/api/v1/celdas", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(nuevaCelda),
+                    })
+                        .then(() => {
+                            alert("Celda creada!");
+                            actualizarCeldas();
+                            document.getElementById("formularioCelda").style.display = "none";
+                        })
+                        .catch((error) => {
+                            console.error("Error al crear la celda:", error);
+                            alert("Hubo un error al crear la celda.");
+                        });
+                }
+            });
+
+            // Mostrar el formulario
+            document.getElementById("mostrarFormulario").addEventListener("click", function () {
+                document.getElementById("formularioCelda").style.display = "block";
+                document.getElementById("formCelda").dataset.action = "create";
+            });
+
+            // CANCELAR
+            document.getElementById("cancelarFormulario").addEventListener("click", function () {
+                document.getElementById("formularioCelda").style.display = "none";
+                document.getElementById("formCelda").reset();
+            });
+
+            // Inicializar la tabla de celdas al cargar la página
+            window.addEventListener("load", actualizarCeldas);
+        </script>
+    </body>
 </html>

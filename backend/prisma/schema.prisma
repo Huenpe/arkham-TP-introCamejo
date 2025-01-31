@@ -7,19 +7,21 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model Criminal {
-  id            Int    @id @default(autoincrement())  // Primary key autoincremental
-  nombre        String
-  apodo         String
-  edad          Int
-  genero        String
-  tratamiento   String
-  peligrosidad  String
-  personal_asignado Int  // Foreign key que se relaciona con Staff.dni
-  celda         Int  
-  personal      Personal  @relation(fields: [personal_asignado], references: [dni], onDelete: Cascade) // Relación con Personal
-  delitos       Delito[] // Relación con Delito
-  celda_info    Celda @relation(fields: [celda], references: [numero_celda], onDelete: Cascade) // Relación con Celda
+  id              Int      @id @default(autoincrement())
+  nombre          String
+  apodo           String
+  edad            Int
+  genero          String
+  tratamiento     String
+  peligrosidad    String
+  personal_asignado Int?     // Foreign key que se relaciona con Staff.dni
+  celda           Int?       // Foreign key que se relaciona con Celda.numero_celda
+  foto            String?
+  personal        Personal?  @relation(fields: [personal_asignado], references: [dni], onDelete: SetNull) // Relación con Personal
+  delitos         Delito[]   // Relación con Delito
+  celda_info      Celda?     @relation(fields: [celda], references: [numero_celda], onDelete: SetNull) // Relación con Celda
 }
 
 model Personal {

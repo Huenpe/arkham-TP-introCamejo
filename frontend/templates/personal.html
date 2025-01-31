@@ -1,116 +1,255 @@
 <!DOCTYPE html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
+    <head>
+        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
-		<title>Arkham Asylum</title>
-	</head>
-	<body>
-		<div class="contenedor">
-
-			<nav>
-				<ul>
-					<li><a href="inicio.html">Inicio</a></li>
-					<li><a href="criminales.html">Criminales</a></li>
-					<li><a href="delitos.html">Delitos</a></li>
-					<li><a href="celdas.html">Celdas</a></li>
-					<li><a href="personal.html">Personal</a></li>
+        <link rel="stylesheet" href="../static/css/estilo.css" type="text/css" />
+        <title>Arkham Asylum</title>
+    </head>
+    <body>
+        <div class="contenedor">
+            <nav>
+                <ul>
+                    <li><a href="inicio.html">Inicio</a></li>
+                    <li><a href="criminales.html">Criminales</a></li>
+                    <li><a href="delitos.html">Delitos</a></li>
+                    <li><a href="celdas.html">Celdas</a></li>
+                    <li><a href="personal.html">Personal</a></li>
                     <li class="cargar"><a href="cargar_criminal.html">Cargar Criminal</a></li>
-				</ul>
-			</nav>
-			<main>
-				<header>
-					<div class="header-overlay">
-						<div class="header-text">
-							<h1>Arkham Asylum</h1>
-							<p>Centro de rehabilitación y tratamiento de individuos con trastornos extremos.</p>
-						</div>
-					</div>
-				</header>
-				<section class="secciones">
-					<p class="titulos">Arkhan System</p>
-					<p>
-                        Asilo Arkham, líder mundial en el tratamiento y rehabilitación de individuos con trastornos mentales extremos. Desde 1921, nuestra misión ha sido proporcionar atención especializada combinando ciencia avanzada, seguridad de máxima categoría y un profundo compromiso con la recuperación de nuestros pacientes.
-					</p>
-				</section>
-				<section class="secciones">
-					<p class="titulos">Personal</p>
-					<table class="tabla-personal">
-						<thead>
-							<tr>
-								<th>DNI</th>
-								<th>Nombre</th>
-								<th>Rol</th>
-								<th>Turno</th>
-								<th>Contacto</th>
-								<th>Borrar Staff</th>
+                </ul>
+            </nav>
+            <main>
+                <header>
+                    <div class="header-overlay">
+                        <div class="header-text">
+                            <h1>Arkham Asylum</h1>
+                            <p>Centro de rehabilitación y tratamiento de individuos con trastornos extremos.</p>
+                        </div>
+                    </div>
+                </header>
 
-							</tr>
-						</thead>
-						<tbody id="personal-data">
-						</tbody>
-					</table>
-				</section>
-			</main>
+                <section class="secciones">
+                    <p class="titulos">Arkhan System</p>
+                    <p>
+                        Asilo Arkham, líder mundial en el tratamiento y rehabilitación de individuos con trastornos mentales extremos. Desde 1921, nuestra misión ha sido proporcionar atención especializada combinando ciencia avanzada,
+                        seguridad de máxima categoría y un profundo compromiso con la recuperación de nuestros pacientes.
+                    </p>
+                    <p class="titulos">Información general</p>
 
-			<footer>
-				<p>hecho por batman</p>
-			</footer>
-		</div>
-		<script>
-			fetch('http://127.0.0.1:3002/api/v1/personal')
-			.then(response => response.json())
-			.then(personal => {
-				console.log(personal);
-	
-				let tabla = document.getElementById('personal-data');
-				personal.forEach(persona => {
-					let tr = document.createElement('tr');
-	
-					let dni = document.createElement('td');
-					dni.textContent = persona.dni;  
-	
-					let nombre = document.createElement('td');
-					nombre.textContent = persona.nombre;
-	
-					let rol = document.createElement('td');
-					rol.textContent = persona.rol;  
-	
-					let turno = document.createElement('td');
-					turno.textContent = persona.turno;  
-	
-					let contacto = document.createElement('td');
-					contacto.textContent = persona.contacto;
+                    <button id="mostrarFormulario">¡Cargar laburante!</button>
 
-					let borrar = document.createElement('td');
-					let boton = document.createElement('button')
-					boton.textContent = 'Borrar'
-					boton.onclick = function (){borrar_staff(persona.dni)}
-					borrar.appendChild(boton)
-	
-					tr.appendChild(dni);
-					tr.appendChild(nombre);
-					tr.appendChild(rol);
-					tr.appendChild(turno);
-					tr.appendChild(contacto);
-					tr.appendChild(boton)
-	
-					tabla.appendChild(tr);  
-				});
-			})
+                    <!-- FORMULARIO OCULTO -->
+                    <div id="formularioLaburante" style="display: none;">
+                        <form id="formLaburante">
+                            <label for="dniLaburante">DNI:</label><br />
+                            <input type="number" id="dniLaburante" name="dniLaburante" required />
 
+                            <label for="nombreLaburante">Nombre Completo:</label>
+                            <input type="text" id="nombreLaburante" name="nombreLaburante" required /><br />
 
-			borrar_staff = function(dni){
-				alert('Borrando Staff DNI: ' + dni)
-				fetch('http://127.0.0.1:3002/api/v1/personal/' + dni, {method: 'DELETE'})
-				.then(response => response.json())
-				.then( response => {
-					console.log(response)
-				})
-			}
+                            <label for="rolLaburante">Rol:</label>
+                            <input type="text" id="rolLaburante" name="rolLaburante" required /><br />
 
-			
-		</script>
-	</body>
+                            <label for="turnoLaburante">Turno:</label>
+                            <select id="turnoLaburante" name="turnoLaburante" required>
+                                <option value="" disabled selected>Selecciona una opción</option>
+                                <option value="mañana">Mañana</option>
+                                <option value="Tarde">Tarde</option>
+                                <option value="noche">Noche</option>
+                            </select>
+
+                            <label for="contactoLaburante">N° De Contacto:</label>
+                            <input type="number" id="contactoLaburante" name="contactoLaburante" required /><br />
+                            <br />
+                            <button type="submit">Crear Nuevo Personal</button>
+                            <button type="button" id="cancelarFormulario">Cancelar</button>
+                        </form>
+                    </div>
+                </section>
+
+                <section class="secciones">
+                    <p class="titulos">Personal</p>
+                    <table class="tabla-generica">
+                        <thead>
+                            <tr>
+                                <th>DNI</th>
+                                <th>Nombre</th>
+                                <th>Rol</th>
+                                <th>Turno</th>
+                                <th>Contacto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="personal-data"></tbody>
+                    </table>
+                </section>
+            </main>
+
+            <footer>
+                <p>hecho por batman</p>
+            </footer>
+        </div>
+        <script>
+            // Función para actualizar la lista de personal
+            function actualizarPersonal() {
+                fetch("http://127.0.0.1:3002/api/v1/personal")
+                    .then((response) => response.json())
+                    .then((personal) => {
+                        let tabla = document.getElementById("personal-data");
+                        tabla.innerHTML = ""; // Limpiar la tabla antes de actualizar
+                        personal.forEach((laburante) => {
+                            let tr = document.createElement("tr");
+
+                            let dni = document.createElement("td");
+                            dni.textContent = laburante.dni;
+
+                            let nombre = document.createElement("td");
+                            nombre.textContent = laburante.nombre;
+
+                            let rol = document.createElement("td");
+                            rol.textContent = laburante.rol;
+
+                            let turno = document.createElement("td");
+                            turno.textContent = laburante.turno;
+
+                            let contacto = document.createElement("td");
+                            contacto.textContent = laburante.contacto;
+
+                            // COLUMNA DE ACCIONES CON BOTONES
+                            let acciones = document.createElement("td");
+
+                            let editarBtn = document.createElement("button");
+                            editarBtn.textContent = "Editar";
+                            editarBtn.onclick = () => editarLaburante(laburante.dni);
+                            acciones.appendChild(editarBtn);
+
+                            let eliminarBtn = document.createElement("button");
+                            eliminarBtn.textContent = "Eliminar";
+                            eliminarBtn.onclick = () => eliminarLaburante(laburante.dni);
+                            acciones.appendChild(eliminarBtn);
+
+                            tr.appendChild(dni);
+                            tr.appendChild(nombre);
+                            tr.appendChild(rol);
+                            tr.appendChild(turno);
+                            tr.appendChild(contacto);
+                            tr.appendChild(acciones);
+
+                            tabla.appendChild(tr);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("Error al actualizar el personal:", error);
+                    });
+            }
+
+            // ENVIAR FORMULARIO (CREAR O EDITAR PERSONAL)
+            document.getElementById("formLaburante").addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                const action = event.target.dataset.action;
+                const dniLaburante = event.target.dataset.dniLaburante;
+
+                const nuevoLaburante = {
+                    dni: parseInt(document.getElementById("dniLaburante").value),
+                    nombre: document.getElementById("nombreLaburante").value,
+                    rol: document.getElementById("rolLaburante").value,
+                    turno: document.getElementById("turnoLaburante").value,
+                    contacto: document.getElementById("contactoLaburante").value,
+                };
+
+                if (action === "update") {
+                    // ACTUALIZAR PERSONAL
+                    fetch(`http://127.0.0.1:3002/api/v1/personal/${dniLaburante}`, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(nuevoLaburante),
+                    })
+                        .then((response) => response.json())
+                        .then(() => {
+                            alert("Personal actualizado!");
+                            actualizarPersonal();
+                            document.getElementById("formularioLaburante").style.display = "none";
+                        })
+                        .catch((error) => {
+                            console.error("Error al actualizar personal:", error);
+                            alert("Hubo un error al actualizar el personal.");
+                        });
+                } else {
+                    // CREAR PERSONAL
+                    fetch("http://127.0.0.1:3002/api/v1/personal", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify(nuevoLaburante),
+                    })
+                        .then(() => {
+                            alert("Personal creado!");
+                            actualizarPersonal();
+                            document.getElementById("formularioLaburante").style.display = "none";
+                        })
+                        .catch((error) => {
+                            console.error("Error al crear personal:", error);
+                            alert("Hubo un error al crear el personal.");
+                        });
+                }
+            });
+
+            // ELIMINAR PERSONAL
+            function eliminarLaburante(dniLaburante) {
+                fetch(`http://127.0.0.1:3002/api/v1/personal/${dniLaburante}`, {
+                    method: "DELETE",
+                })
+                    .then((response) => response.json())
+                    .then(() => {
+                        alert("Personal eliminado!");
+                        actualizarPersonal();
+                    })
+                    .catch((error) => {
+                        console.error("Error al eliminar el personal:", error);
+                        alert("Hubo un error al eliminar el personal.");
+                    });
+            }
+
+            // EDITAR PERSONAL
+            function editarLaburante(dniLaburante) {
+                fetch(`http://127.0.0.1:3002/api/v1/personal/${dniLaburante}`)
+                    .then((response) => response.json())
+                    .then((laburante) => {
+                        document.getElementById("dniLaburante").value = laburante.dni;
+                        document.getElementById("nombreLaburante").value = laburante.nombre;
+                        document.getElementById("rolLaburante").value = laburante.rol;
+                        document.getElementById("turnoLaburante").value = laburante.turno;
+                        document.getElementById("contactoLaburante").value = laburante.contacto;
+
+                        document.getElementById("formLaburante").dataset.action = "update";
+                        document.getElementById("formLaburante").dataset.dniLaburante = dniLaburante;
+
+                        document.getElementById("formularioLaburante").style.display = "block";
+
+                        document.getElementById("formularioLaburante").scrollIntoView({ behavior: "smooth" });
+                    })
+                    .catch((error) => {
+                        console.error("Error al obtener el personal:", error);
+                    });
+            }
+
+            // Mostrar el formulario para crear personal
+            document.getElementById("mostrarFormulario").addEventListener("click", function () {
+                document.getElementById("formularioLaburante").style.display = "block";
+                document.getElementById("formLaburante").reset();
+                document.getElementById("formLaburante").dataset.action = "create";
+            });
+
+            // CANCELAR el formulario
+            document.getElementById("cancelarFormulario").addEventListener("click", function () {
+                document.getElementById("formularioLaburante").style.display = "none";
+                document.getElementById("formLaburante").reset();
+            });
+            window.addEventListener("load", actualizarPersonal);
+        </script>
+    </body>
 </html>

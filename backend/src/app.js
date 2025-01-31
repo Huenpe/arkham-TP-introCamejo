@@ -49,7 +49,7 @@ app.post('/api/v1/criminales', async (req, res) => {
     })
 
     if (personal === null){
-        res.send(400)
+        res.sendStatus(400)
         return
     }
 
@@ -60,7 +60,7 @@ app.post('/api/v1/criminales', async (req, res) => {
     })
 
     if (celda === null){
-        res.send(400)
+        res.sendStatus(400)
         return
     }
 
@@ -74,8 +74,6 @@ app.post('/api/v1/criminales', async (req, res) => {
             genero: req.body.genero,
             peligrosidad: req.body.peligrosidad,
             tratamiento: req.body.tratamiento,
-            fechaIngreso: req.body.fechaIngreso,
-            delito: req.body.delito,
             personal_asignado: req.body.personal_asignado,
             celda: req.body.celda,
             foto: req.body.foto
@@ -135,7 +133,7 @@ app.put('/api/v1/criminales/:id', async (req,res)=> {
             }
         })
         if (personal === null){
-            res.send(400)
+            res.sendStatus(400)
             return
         }
     }
@@ -152,8 +150,6 @@ app.put('/api/v1/criminales/:id', async (req,res)=> {
             genero: req.body.genero,
             peligrosidad: req.body.peligrosidad,
             tratamiento: req.body.tratamiento,
-            fechaIngreso: req.body.fechaIngreso,
-            delito: req.body.delito,
             personal_asignado: req.body.personal_asignado,
             celda: req.body.celda,
             foto: req.body.foto
@@ -213,11 +209,11 @@ app.delete('/api/v1/personal/:dni', async (req,res)=>{  //borrar alguno edl pers
 app.post('/api/v1/personal', async (req, res) => {  //crear alguien del personal
     const nuevo_laburante = await prisma.personal.create({
         data: {
-            dni: req.body.dni,
+            dni: parseInt(req.body.dni),
             nombre: req.body.nombre,
             rol: req.body.rol,
             turno: req.body.turno,
-            contacto: req.body.contacto
+            contacto: parseInt(req.body.contacto)
         }})
     res.send(nuevo_laburante)
 })
@@ -245,7 +241,7 @@ app.put('/api/v1/personal/:dni', async (req,res)=> {  //modificar alguien del pe
             nombre: req.body.nombre,
             rol: req.body.rol,
             turno: req.body.turno,
-            contacto: req.body.contacto
+            contacto: parseInt(req.body.contacto)
             
         }
     })
@@ -286,13 +282,13 @@ app.post('/api/v1/delitos', async (req,res)=>{
         },
     })
     if (criminal === null){  //validación
-        res.send(404)
+        res.sendStatus(404)
         return
     }
 
     let delito = await prisma.delito.create({
         data: {
-            criminal_id: req.body.criminal_id,
+            criminal_id: parseInt(req.body.criminal_id),
             descripcion: req.body.descripcion,
             fecha: req.body.fecha,
             sentencia_judicial: req.body.sentencia_judicial,
@@ -317,7 +313,7 @@ app.delete('/api/v1/delitos/:numero_delito', async  (req,res)=>{
     }
     await prisma.delito.delete({
         where: {
-            numero_delito: req.params.numero_delito
+            numero_delito: parseInt(req.params.numero_delito)
         },    
     })
     res.send(delito)
@@ -349,7 +345,7 @@ app.put('/api/v1/delitos/:numero_delito', async (req,res)=>{
 
     await prisma.delito.update({
         where: {
-            numero_delito: req.params.numero_delito
+            numero_delito: parseInt(req.params.numero_delito)
         },
         data: {
             criminal_id: req.body.criminal_id,
@@ -384,7 +380,7 @@ app.get('/api/v1/celdas/:numero_celda', async (req, res)=>{
         }
     })
     if (celda === null) {
-        res.send(404)
+        res.sendStatus(404)
         return
     }
     res.send(celda)
@@ -397,7 +393,7 @@ app.delete('/api/v1/celdas/:numero_celda', async (req,res)=>{
         }
     })
     if (celda === null) {
-        res.send(404)
+        res.sendStatus(404)
         return
     }
     await prisma.celda.delete({
@@ -416,7 +412,7 @@ app.put('/api/v1/celdas/:numero_celda', async (req,res)=>{
         }
     })
     if (celda === null) {
-        res.send(404)
+        res.sendStatus(404)
         return
     }
 
@@ -429,9 +425,9 @@ app.put('/api/v1/celdas/:numero_celda', async (req,res)=>{
             tipoCelda: req.body.tipoCelda,
             descripcionCelda: req.body.descripcionCelda,
             nivelSeguridad: req.body.nivelSeguridad,
-            camarasSeguridad: req.body.camarasSeguridad,
-            sensoresMovimiento: req.body.sensoresMovimiento,
-            alarmas: req.body.alarmas,
+            camarasSeguridad: JSON.parse(req.body.camarasSeguridad),
+            sensoresMovimiento: JSON.parse(req.body.sensoresMovimiento),
+            alarmas: JSON.parse(req.body.alarmas),
             piso: req.body.piso,
             capacidad: req.body.capacidad
         }
@@ -447,9 +443,9 @@ app.post('/api/v1/celdas', async (req,res)=>{
             tipoCelda: req.body.tipoCelda,   
             descripcionCelda: req.body.descripcionCelda,
             nivelSeguridad: req.body.nivelSeguridad,
-            camarasSeguridad: req.body.camarasSeguridad,
-            sensoresMovimiento: req.body.sensoresMovimiento,
-            alarmas: req.body.alarmas,       
+            camarasSeguridad: JSON.parse(req.body.camarasSeguridad),
+            sensoresMovimiento: JSON.parse(req.body.sensoresMovimiento),
+            alarmas: JSON.parse(req.body.alarmas),       
             piso: req.body.piso,          
             capacidad: req.body.capacidad,     
 
